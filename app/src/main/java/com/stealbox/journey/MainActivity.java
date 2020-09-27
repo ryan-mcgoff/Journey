@@ -11,37 +11,57 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.stealbox.journey.databinding.ActivityMainBinding;
+
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity{
+
+
+    @Inject
+    PreferenceManager preferenceManager;
+
+    private ActivityMainBinding binding;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
-        RecyclerView recyclerView = findViewById(R.id.testView);
-        recyclerView.setHasFixedSize(true);
 
-        ArrayList<TripItem> trips = new ArrayList<>();
-        trips.add(new TripItem("Italy"));
-        trips.add(new TripItem("France"));
-        trips.add(new TripItem("Germany"));
-        trips.add(new TripItem("Iceland"));
-        trips.add(new TripItem("Russia"));
+//        RecyclerView recyclerView = findViewById(R.id.testView);
+//        recyclerView.setHasFixedSize(true);
+//
+//        ArrayList<TripItem> trips = new ArrayList<>();
+//        new TripItem("");
+//        trips.add(new TripItem("Italy"));
+//        trips.add(new TripItem("France"));
+//        trips.add(new TripItem("Germany"));
+//        trips.add(new TripItem("Iceland"));
+//        trips.add(new TripItem("Russia"));
+//
+//
+//        recyclerView.setAdapter(new TripsListAdaptor(this, trips));
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        recyclerView.setAdapter(new TripsListAdaptor(this, trips));
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(view -> Snackbar.make(view, "d", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show());
+        binding.fab.setOnClickListener(view ->{
+            String eee = preferenceManager.getE();
+            String e = eee;
+            Snackbar.make(view, "d", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+                });
     }
 
     @Override
